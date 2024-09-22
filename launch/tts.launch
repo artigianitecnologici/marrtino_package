@@ -1,0 +1,4 @@
+<?xml version="1.0"?>
+<launch>
+    <node name="node_tts"  pkg="marrtino_package"  type="node_tts.py" output="screen" />
+</launch>
