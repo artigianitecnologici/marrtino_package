@@ -13,7 +13,7 @@ import time
 # SOCIAL
 # 
 TOPIC_emotion = "social/emotion"
-TOPIC_speech = "/speech/to_speak"
+TOPIC_speech = "social/speech/to_speak"
 TOPIC_pan = "pan_controller/command"
 TOPIC_tilt = "tilt_controller/command"
 TOPIC_spalla_dx_rot = "/spalladx_controller/command"
@@ -47,14 +47,14 @@ def gesture_zero():
     emotion("startblinking")
     head_position("front")
     emotion("normal")
-    right_shoulder_flexion(-70)
+    left_shoulder_rotation(15)
+    right_shoulder_rotation(15)
     left_shoulder_flexion(-70)
-    right_shoulder_rotation(30)
-    left_shoulder_rotation(20)
-    right_elbow(30)
-    left_elbow(30)
-    right_hand(80)
-    left_hand(80)
+    right_shoulder_flexion(-70)
+    left_hand(0)
+    right_hand(0)
+    left_elbow(10)
+    right_elbow(10)
 
 def gesture_hello():
     emotion("startblinking")
@@ -94,14 +94,14 @@ def gesture_down():
     hand_right(4.1866666666666665)
 
 def gesture_up():
-    spalla_flessione_dx(2.6166666666666667)
-    spalla_flessione_sx(2.6166666666666667)
-    spalla_rotazione_dx(2.6166666666666667)
-    spalla_rotazione_sx(2.6166666666666667)
-    gomito_dx(2.6166666666666667)
-    gomito_sx(2.6166666666666667)
-    hand_left(1.0466666666666666)
-    hand_right(4.1866666666666665)
+    left_shoulder_rotation(15)
+    right_shoulder_rotation(15)
+    left_shoulder_flexion(45)
+    right_shoulder_flexion(45)
+    left_hand(0)
+    right_hand(0)
+    left_elbow(10)
+    right_elbow(10)
 
 def gesture_pos1():
     right_elbow(30)
