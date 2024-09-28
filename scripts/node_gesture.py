@@ -84,24 +84,10 @@ def gesture_down():
     head_position("front")
     emotion("blinking")
     emotion("normal")
-    spalla_flessione_dx(1.3955555555555557)
-    spalla_flessione_sx(3.837777777777778)
-    spalla_rotazione_dx(2.6166666666666667)
-    spalla_rotazione_sx(2.6166666666666667)
-    gomito_dx(2.6166666666666667)
-    gomito_sx(2.6166666666666667)
-    hand_left(1.0466666666666666)
-    hand_right(4.1866666666666665)
+   
 
 def gesture_up():
-    left_shoulder_rotation(15)
-    right_shoulder_rotation(15)
-    left_shoulder_flexion(45)
-    right_shoulder_flexion(45)
-    left_hand(0)
-    right_hand(0)
-    left_elbow(10)
-    right_elbow(10)
+ 
 
 def gesture_pos1():
     right_elbow(30)
@@ -132,8 +118,8 @@ def gesture_init():
     left_shoulder_rotation(0)
     right_elbow(0)
     left_elbow(0)
-    right_hand(90)
-    left_hand(90)
+    right_hand(0)
+    left_hand(0)
 
 def gesture_anim():
     head_position("front")
