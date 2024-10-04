@@ -87,6 +87,7 @@ def gesture_down():
    
 
 def gesture_up():
+    right_elbow(30)
  
 
 def gesture_pos1():
