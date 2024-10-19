@@ -15,7 +15,7 @@ class AskToGPTNode:
         self.gpt_response_pub = rospy.Publisher('gtpresponse', String, queue_size=10)
 
         # Subscriber to receive the requested text
-        rospy.Subscriber('myrequest', String, self.handle_request)
+        rospy.Subscriber('gtprequest', String, self.handle_request)
 
         # Load the API key from the YAML file
         config = self.load_config()
@@ -32,11 +32,12 @@ class AskToGPTNode:
 
     def load_config(self):
         # Load the YAML configuration file
-        config_file = rospy.get_param('~config_file', 'config.yaml')
+       # $HOME/src/marrtino_package/script 
+        config_file = rospy.get_param('$HOME/src/marrtino_package/script/config_file', 'config.yaml')
         with open(config_file, 'r') as file:
             return yaml.safe_load(file)
 
-    def handle_request(self, msg):
+    def handle_request(self, msg)
         # Function to handle the received message
         request_text = msg.data
         # rospy.loginfo(f"Request received: {request_text}")
@@ -63,7 +64,7 @@ class AskToGPTNode:
             # Publish the GPT response
             self.gpt_response_pub.publish(response_text)
         except Exception as e:
-            rospy.logerr(f"Error in GPT request: {e}")
+            rospy.logerr("Error in GPT request: {}".format(e))
 
 if __name__ == '__main__':
     try:
