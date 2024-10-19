@@ -12,7 +12,7 @@ class AskToGPTNode:
         rospy.init_node('asktogpt', anonymous=True)
 
         # Publisher to publish the GPT response
-        self.gpt_response_pub = rospy.Publisher('gptresponse', String, queue_size=10)
+        self.gpt_response_pub = rospy.Publisher('gtpresponse', String, queue_size=10)
 
         # Subscriber to receive the requested text
         rospy.Subscriber('myrequest', String, self.handle_request)
@@ -39,7 +39,8 @@ class AskToGPTNode:
     def handle_request(self, msg):
         # Function to handle the received message
         request_text = msg.data
-        rospy.loginfo(f"Request received: {request_text}")
+        # rospy.loginfo(f"Request received: {request_text}")
+        rospy.loginfo("Request received: {}".format(request_text))
 
         # Build the payload for the API request
         payload = json.dumps({
@@ -57,7 +58,7 @@ class AskToGPTNode:
         try:
             response = requests.post(self.url, headers=self.headers, data=payload)
             response_text = response.text
-            rospy.loginfo(f"GPT Response: {response_text}")
+            rospy.loginfo("GPT Response: {}".format(response_text))
 
             # Publish the GPT response
             self.gpt_response_pub.publish(response_text)
