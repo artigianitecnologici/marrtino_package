@@ -5,7 +5,6 @@ from std_msgs.msg import String
 import requests
 import json
 import yaml
-import os
 
 class AskToGPTNode:
     def __init__(self):
@@ -13,7 +12,7 @@ class AskToGPTNode:
         rospy.init_node('asktogpt', anonymous=True)
 
         # Publisher to publish the GPT response
-        self.gpt_response_pub = rospy.Publisher('gptresponse', String, queue_size=10)
+        self.gpt_response_pub = rospy.Publisher('gtpresponse', String, queue_size=10)
 
         # Subscriber to receive the requested text
         rospy.Subscriber('gtprequest', String, self.handle_request)
@@ -32,15 +31,15 @@ class AskToGPTNode:
         rospy.loginfo("asktogpt node started and listening...")
 
     def load_config(self):
-        # Load the YAML configuration file from the correct path
-        config_file = rospy.get_param('~config_file') #  , '~/robot/src/marrtino_package/script/config.yaml')
-        config_file = os.path.expanduser(config_file)  # Expand the ~ to the full home directory path
+        # Load the YAML configuration file
+        config_file = rospy.get_param('~config_file', 'config.yaml')
         with open(config_file, 'r') as file:
             return yaml.safe_load(file)
 
     def handle_request(self, msg):
-        # Function to handle the received message (added the missing colon)
+        # Function to handle the received message
         request_text = msg.data
+        # rospy.loginfo(f"Request received: {request_text}")
         rospy.loginfo("Request received: {}".format(request_text))
 
         # Build the payload for the API request
