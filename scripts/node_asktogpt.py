@@ -33,7 +33,7 @@ class AskToGPTNode:
 
     def load_config(self):
         # Load the YAML configuration file from the correct path
-        config_file = rospy.get_param('~config_file', '~/src/marrtino_package/script/config.yaml')
+        config_file = rospy.get_param('~config_file', '~/robot/src/marrtino_package/script/config.yaml')
         config_file = os.path.expanduser(config_file)  # Expand the ~ to the full home directory path
         with open(config_file, 'r') as file:
             return yaml.safe_load(file)
