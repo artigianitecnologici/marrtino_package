@@ -6,16 +6,19 @@ import requests
 import json
 import yaml
 
+TOPIC_response_gtp = "/gtpresponse"
+TOPIC_request_gtp = "/gtprequest"
+
 class AskToGPTNode:
     def __init__(self):
         # Initialize the node
         rospy.init_node('asktogpt', anonymous=True)
 
         # Publisher to publish the GPT response
-        self.gpt_response_pub = rospy.Publisher('gtpresponse', String, queue_size=10)
+        self.gpt_response_pub = rospy.Publisher(TOPIC_response_gtp, String, queue_size=10)
 
         # Subscriber to receive the requested text
-        rospy.Subscriber('gtprequest', String, self.handle_request)
+        rospy.Subscriber(TOPIC_request_gtp, String, self.handle_request)
 
         # Load the API key from the YAML file
         config = self.load_config()
@@ -28,7 +31,7 @@ class AskToGPTNode:
             'Cookie': 'PHPSESSID=50la5tns4ule95udg6in7ko5aa'
         }
 
-        rospy.loginfo("asktogpt node started and listening...")
+        rospy.loginfo("asktogpt v.1.00 node started and listening...")
 
     def load_config(self):
         # Load the YAML configuration file
@@ -41,16 +44,19 @@ class AskToGPTNode:
         request_text = msg.data
         # rospy.loginfo(f"Request received: {request_text}")
         rospy.loginfo("Request received: {}".format(request_text))
-
+        #  assid = "asst_vg5orqR32POATtTNfVMO3AZV" hotel
+        assid = "asst_0DKQrJ6yc3fdOo2T4dHBfIMA"#museo 
+        treadId = "thread_TSpOHDT6ISGvqhlfmrt0MsIR"
+        userId = "nomand2"
         # Build the payload for the API request
         payload = json.dumps({
             "apiKey": self.api_key,
             "action": "addMessage",
             "message": request_text,
-            "assistID": "asst_vg5orqR32POATtTNfVMO3AZV",
-            "threadID": "thread_XST1ratS0serYLDx4LphpYsK",
+            "assistID": assid,
+            "threadID": treadId,
             "db": "mpnet_its_pesaro",
-            "user": "monand",
+            "user": userId,
             "idUser": 1
         })
 
