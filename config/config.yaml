@@ -1,0 +1,24 @@
+apiKey: "MdBou6VPJaJ4fniVKk44CP9yTba36FGd7AaHeUEfgaHqxPykcKh"
+museo:
+  assid: "asst_0DKQrJ6yc3fdOo2T4dHBfIMA"
+  treadid: "thread_TSpOHDT6ISGvqhlfmrt0MsIR"
+  userid: "monand2"
+  pHPsessionid: "j79fjckbkivdpb1vfl5o8kejum"
+
+hotel:
+  assid: "asst_vg5orqR32POATtTNfVMO3AZV"
+  treadid: "thread_XST1ratS0serYLDx4LphpYsK"
+  userid: "monand2"
+  pHPsessionid: "PHPSESSID=50la5tns4ule95udg6in7ko5aa"
+
+eventi:
+  assid: "asst_terzo_example"
+  treadid: "thread_terzo_example"
+  userid: "monand2"
+  pHPsessionid: "third_php_session"
+
+azienda:
+  assid: "asst_quarto_example"
+  treadid: "thread_quarto_example"
+  userid: "monand2"
+  pHPsessionid: "fourth_php_session"

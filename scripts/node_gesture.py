@@ -43,6 +43,14 @@ gomito_sx_pub = rospy.Publisher(TOPIC_gomito_sx, Float64, queue_size=1,   latch=
 hand_right_pub = rospy.Publisher(TOPIC_hand_right, Float64, queue_size=1,   latch=True)
 hand_left_pub = rospy.Publisher(TOPIC_hand_left, Float64, queue_size=1,   latch=True)
 
+
+
+def gesture_indica_sinistra():
+    left_shoulder_flexion(20)
+    left_shoulder_rotation(20)
+    left_elbow(40)
+    left_hand(-70)
+
 def gesture_zero():
     emotion("startblinking")
     head_position("front")
@@ -218,8 +226,14 @@ def head_position(msg):
     if (msg == 'left'):
         pan_pub.publish(0.5)
         tilt_pub.publish(0)
+    if (msg == 'half_left'):
+        pan_pub.publish(0.25)
+        tilt_pub.publish(0)
     if (msg == 'right'):
         pan_pub.publish(-0.5)
+        tilt_pub.publish(0)
+    if (msg == 'half_right'):
+        pan_pub.publish(-0.25)
         tilt_pub.publish(0)
     if (msg == 'down'):
         pan_pub.publish(0)
@@ -318,6 +332,8 @@ def callback_gesture(data):
         start_timer()
     if (gesture == 'hello'):
         gesture_hello()
+    if (gesture == 'indica_sinistra'):
+        gesture_indica_sinistra()
     if (gesture == 'stop'):
         start_timer()
 
