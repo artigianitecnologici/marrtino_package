@@ -148,8 +148,77 @@ def reset_gesture():
     gesture_anim()
 
 
+def hand_identify():
+    right_shoulder_flexion(-60)
+    right_shoulder_rotation(90)
+    right_elbow(70)
+    right_hand(-70)
 
-#### SOCIAL ####
+def point_left():
+    left_shoulder_flexion(20)
+    left_shoulder_rotation(20)
+    left_elbow(30)
+    left_hand(-70)
+
+    
+
+def point_right():
+    right_shoulder_flexion(20)
+    right_shoulder_rotation(20)
+    right_elbow(20)
+    right_hand(-70)
+
+
+def greeting():
+    right_shoulder_flexion(20)
+    right_shoulder_rotation(30)
+    right_hand(-120)
+    for count in range(5):
+        right_elbow(80)
+        wait(2)
+        right_elbow(30)
+        wait(2)
+
+
+
+def point_up():
+    head_position("up")
+    right_shoulder_flexion(45)
+    right_shoulder_rotation(40)
+    right_elbow(60)
+    right_hand(-80)
+
+def check_ticket():
+    right_shoulder_flexion(-65)
+    right_shoulder_rotation(30)
+    right_hand(-90)
+    for count in range(2):
+        right_elbow(60)
+        wait(0.5)
+        right_elbow(50)
+        wait(0.5)
+
+
+def hello():
+    right_shoulder_flexion(-30)
+    right_shoulder_rotation(10)
+    right_hand(-90)
+    for count in range(2):
+        right_elbow(60)
+        wait(0.5)
+        right_elbow(50)
+        wait(0.5)
+    left_shoulder_flexion(-30)
+    left_shoulder_rotation(10)
+    left_hand(-80)
+    for count2 in range(2):
+        left_elbow(60)
+        wait(0.5)
+        left_elbow(50)
+        wait(0.5)
+
+
+### SOCIAL ####
 ################
 
 
@@ -331,9 +400,22 @@ def callback_gesture(data):
     if (gesture == 'start'):
         start_timer()
     if (gesture == 'hello'):
-        gesture_hello()
+        hello()
     if (gesture == 'indica_sinistra'):
         gesture_indica_sinistra()
+    if (gesture == 'point_left'):
+        point_left()
+    if (gesture == 'point_right'):
+        point_right()
+    if (gesture == 'point_up'):
+        point_up()
+    if (gesture == 'hand_identify'):
+        hand_identify()
+    if (gesture == 'greeting'):
+        greeting()
+    if (gesture == 'check_ticket'):
+        check_ticket()
+        
     if (gesture == 'stop'):
         start_timer()
 
