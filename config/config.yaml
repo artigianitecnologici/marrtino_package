@@ -4,21 +4,25 @@ museo:
   treadid: "thread_siZ5lL1VfPnPqjrqgrEXkchI"
   userid: "AssMuseo"
   pHPsessionid: "muaq5rne7uueig615pcj6h2dui"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
 
 hotel:
   assid: "asst_vg5orqR32POATtTNfVMO3AZV"
   treadid: "thread_XST1ratS0serYLDx4LphpYsK"
   userid: "ManHotel"
   pHPsessionid: "PHPSESSID=50la5tns4ule95udg6in7ko5aa"
-
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  
 eventi:
   assid: "asst_AIiB8rxW2kSsiF62uxmCLZtq"
   treadid: "thread_terzo_example"
   userid: "ManEvento"
   pHPsessionid: "third_php_session"
-
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+ 
 azienda:
   assid: "asst_ig3qU3rzvcaOeIsLSuV4yQAY"
   treadid: "thread_quarto_example"
   userid: "ManAzienda"
   pHPsessionid: "fourth_php_session"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"

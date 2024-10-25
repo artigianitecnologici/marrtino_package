@@ -10,6 +10,8 @@ import rospkg
 TOPIC_response_gtp = "/gtpresponse"
 TOPIC_request_gtp = "/gtprequest"
 TOPIC_set_group = "/gtpsetgroup"
+TOPIC_speech = "/social/speech/to_speak"
+TOPIC_speechstatus = "/social/speech/status"
 
 class AskToGPTNode:
     
@@ -19,6 +21,8 @@ class AskToGPTNode:
 
         # Publisher to publish the GPT response
         self.gpt_response_pub = rospy.Publisher(TOPIC_response_gtp, String, queue_size=10)
+        self.speech_pub =  rospy.Publisher(TOPIC_speech, String, queue_size=1,   latch=True)
+        self.language_pub = rospy.Publisher(TOPIC_language, String, queue_size=1,   latch=True)
 
         # Subscriber to receive the requested text
         rospy.Subscriber(TOPIC_request_gtp, String, self.handle_request)
@@ -31,6 +35,15 @@ class AskToGPTNode:
         self.initialize_group(self.group)
 
         rospy.loginfo("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
+
+    def setlanguage(msg):
+        print '/social/speech/language %s' % (msg)
+        self.language_pub.publish(msg)
+
+    def speech(msg):
+        print '/social/speech/to_speak %s' % (msg)
+        self.speech_pub.publish(msg)
+
 
     def load_config(self):
         # Use rospkg to find the path to the marrtino_package
@@ -51,9 +64,9 @@ class AskToGPTNode:
         self.assid = group_config.get("assid")
         self.userId = group_config.get("userid")
         self.PHPsessionid = group_config.get("pHPsessionid")
-        
+        self.url = group_config.get("urlgtp")
         # API endpoint and headers
-        self.url = "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+       
         self.headers = {
             'Content-Type': 'application/json',
             'Cookie': 'PHPSESSID={}'.format(self.PHPsessionid)
@@ -137,6 +150,8 @@ class AskToGPTNode:
         # Handle the group update request
         new_group = msg.data
         rospy.loginfo("Updating group to: {}".format(new_group))
+        self.speech("gruppo,")
+        self.speech(format(new_group))
         self.initialize_group(new_group)
 
 if __name__ == '__main__':
