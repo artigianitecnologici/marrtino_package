@@ -136,7 +136,7 @@ def gesture_anim():
     emotion("normal")
     for i in range(1,2):
         gesture_poszero()
-        time.sleep(1) # Sleep for 3 secondswait(1)
+        time.sleep(1) # Sleep for 3 secondstime.sleep(1)
         gesture_pos1()
         time.sleep(1) # Sleep for 3 seconds
         gesture_pos2()
@@ -175,9 +175,9 @@ def greeting():
     right_hand(-120)
     for count in range(5):
         right_elbow(80)
-        wait(2)
+        time.sleep(2)
         right_elbow(30)
-        wait(2)
+        time.sleep(2)
 
 
 
@@ -194,9 +194,9 @@ def check_ticket():
     right_hand(-90)
     for count in range(2):
         right_elbow(60)
-        wait(0.5)
+        time.sleep(0.5)
         right_elbow(50)
-        wait(0.5)
+        time.sleep(0.5)
 
 
 def hello():
@@ -205,17 +205,17 @@ def hello():
     right_hand(-90)
     for count in range(2):
         right_elbow(60)
-        wait(0.5)
+        time.sleep(0.5)
         right_elbow(50)
-        wait(0.5)
+        time.sleep(0.5)
     left_shoulder_flexion(-30)
     left_shoulder_rotation(10)
     left_hand(-80)
     for count2 in range(2):
         left_elbow(60)
-        wait(0.5)
+        time.sleep(0.5)
         left_elbow(50)
-        wait(0.5)
+        time.sleep(0.5)
 
 
 ### SOCIAL ####
