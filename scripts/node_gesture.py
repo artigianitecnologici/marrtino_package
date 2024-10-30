@@ -411,6 +411,8 @@ def callback_gesture(data):
         point_up()
     if (gesture == 'hand_identify'):
         hand_identify()
+    if (gesture == 'hand_indentify'):
+        hand_identify()
     if (gesture == 'greeting'):
         greeting()
     if (gesture == 'check_ticket'):
