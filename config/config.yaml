@@ -2,27 +2,38 @@ apiKey: "MdBou6VPJaJ4fniVKk44CP9yTba36FGd7AaHeUEfgaHqxPykcKh"
 museo:
   assid: "asst_0DKQrJ6yc3fdOo2T4dHBfIMA"
   treadid: "thread_siZ5lL1VfPnPqjrqgrEXkchI"
+  message: "Presentati ed effettua il Login con queste coppie di chiave valore, Login:AssMuseo Password:12345678"
   userid: "AssMuseo"
   pHPsessionid: "muaq5rne7uueig615pcj6h2dui"
   urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
-
+  dscgpt: "Sono il tuo assistente museale"
+  iduser: 6
 hotel:
   assid: "asst_vg5orqR32POATtTNfVMO3AZV"
   treadid: "thread_XST1ratS0serYLDx4LphpYsK"
+  message: "Presentati ed effettua il Login, Login:ManHotel Password:12345678"
   userid: "ManHotel"
-  pHPsessionid: "PHPSESSID=50la5tns4ule95udg6in7ko5aa"
+  pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
   urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  dscgpt: "Sono il tuo assistente Manager dell Hotel"
+  iduser: 7
   
 eventi:
   assid: "asst_AIiB8rxW2kSsiF62uxmCLZtq"
   treadid: "thread_terzo_example"
+  message: "Presentati ed effettua il Login, Login:ManEvento Password:12345678"
   userid: "ManEvento"
-  pHPsessionid: "third_php_session"
+  pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
   urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  ./se: "Sono il tuo assistente per gli Eventi"
+  iduser: 4
  
 azienda:
   assid: "asst_ig3qU3rzvcaOeIsLSuV4yQAY"
   treadid: "thread_quarto_example"
+  message: "Presentati ed effettua il Login, Login:ManAzienda Password:12345678"
   userid: "ManAzienda"
-  pHPsessionid: "fourth_php_session"
+  pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
   urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  dscgpt: "Sono il tuo assistente manager aziendale"
+  iduser: 5

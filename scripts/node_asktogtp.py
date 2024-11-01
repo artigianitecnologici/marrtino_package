@@ -32,7 +32,7 @@ class AskToGPTNode:
 
         # Load the configuration file and initialize with the default group
         self.config = self.load_config()
-        self.group = rospy.get_param('~group', 'museo')  # Default to "museo"
+        self.group = "hotel"#  rospy.get_param('~group', 'hotel')  # Default to "museo"
         self.initialize_group(self.group)
         self.log_msg_pub.publish("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
         rospy.loginfo("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
@@ -67,6 +67,10 @@ class AskToGPTNode:
         self.userId = group_config.get("userid")
         self.PHPsessionid = group_config.get("pHPsessionid")
         self.url = group_config.get("urlgtp")
+        self.iduser = group_config.get("iduser")
+        self.message = group_config.get("message")
+        self.dscgtp = group_config.get("dscgpt")
+                
        
         # API endpoint and headers
         self.headers = {
@@ -75,20 +79,22 @@ class AskToGPTNode:
         }
 
         # Activate a new session and get the thread ID
-        self.treadId = self.activatesession()
         self.log_msg_pub.publish("Group initialized to: {}".format(group))
+        self.treadId = self.activatesession()
         rospy.loginfo("Group initialized to: {}".format(group))
+        self.speech(self.dscgtp)
 
     def activatesession(self):
         # Activate a new session
         payload = json.dumps({
             "apiKey": self.api_key,
             "action": "addConversation",
+            "message": self.message,
             "db": "mpnet_its_pesaro",
             "user": self.userId,
-            "idUser": 6
+            "idUser": self.iduser
         })
-        
+        rospy.loginfo("Payload being sent to GPT API: {}".format(payload))
         try:
             json_response = requests.post(self.url, headers=self.headers, data=payload)
             json_response.raise_for_status()  # Check for HTTP errors
@@ -114,7 +120,7 @@ class AskToGPTNode:
             response.raise_for_status()
             rospy.sleep(3)
             self.log_msg_pub.publish("Ok Start session")
-            print("ok start session")
+            rospy.loginfo("ok start session")
             return treadid
 
         except requests.exceptions.RequestException as e:
@@ -125,37 +131,40 @@ class AskToGPTNode:
         # Handle the received message
         request_text = msg.data
         rospy.loginfo("Request received: {}".format(request_text))
-
-        # Build the payload for the API request
-        payload = json.dumps({
-            "apiKey": self.api_key,
-            "action": "addMessage",
-            "message": request_text,
-            "assistID": self.assid,
-            "threadID": self.treadId,
-            "db": "mpnet_its_pesaro",
-            "user": self.userId,
-            "idUser": 1
-        })
+        if request_text == "PONG!":
+            rospy.loginfo("Pong")
+        else:
+            rospy.loginfo(request_text)
+            # Build the payload for the API request
+            payload = json.dumps({
+                "apiKey": self.api_key,
+                "action": "addMessage",
+                "message": request_text,
+                "assistID": self.assid,
+                "threadID": self.treadId,
+                "db": "mpnet_its_pesaro",
+                "user": self.userId,
+                "idUser": 1
+            })
       
-        # Send the request to the GPT API
-        try:
-            response = requests.post(self.url, headers=self.headers, data=payload)
-            response.raise_for_status()  # Check for HTTP errors
-            response_text = response.text
-            rospy.loginfo("GPT Response: {}".format(response_text))
+            # Send the request to the GPT API
+            try:
+                response = requests.post(self.url, headers=self.headers, data=payload)
+                response.raise_for_status()  # Check for HTTP errors
+                response_text = response.text
+                rospy.loginfo("GPT Response: {}".format(response_text))
 
-            # Publish the GPT response
-            self.gpt_response_pub.publish(response_text)
-        except Exception as e:
-            rospy.logerr("Error in GPT request: {}".format(e))
+                # Publish the GPT response
+                self.gpt_response_pub.publish(response_text)
+            except Exception as e:
+                rospy.logerr("Error in GPT request: {}".format(e))
 
     def update_group(self, msg):
         # Handle the group update request
         new_group = msg.data
         self.log_msg_pub.publish("Updating group to: {}".format(new_group))
         rospy.loginfo("Updating group to: {}".format(new_group))
-        self.speech("group,")
+        
         self.speech(format(new_group))
         self.initialize_group(new_group)
 
