@@ -121,6 +121,7 @@ def gesture_poszero():
     left_hand(80)
 
 def gesture_init():
+    head_position("front")
     right_shoulder_flexion(-70)
     left_shoulder_flexion(-70)
     right_shoulder_rotation(0)
@@ -129,6 +130,7 @@ def gesture_init():
     left_elbow(0)
     right_hand(0)
     left_hand(0)
+    
 
 def gesture_anim():
     head_position("front")
