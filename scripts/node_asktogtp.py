@@ -32,7 +32,7 @@ class AskToGPTNode:
 
         # Load the configuration file and initialize with the default group
         self.config = self.load_config()
-        self.group = "hotel"#  rospy.get_param('~group', 'hotel')  # Default to "museo"
+        self.group = rospy.get_param('~group', 'hotel')  # Default to "museo"
         self.initialize_group(self.group)
         self.log_msg_pub.publish("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
         rospy.loginfo("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
@@ -43,8 +43,7 @@ class AskToGPTNode:
         # self.language_pub.publish(msg)
 
     def speech(self, msg):
-        # Publish the speech message
-        print '/social/speech/to_speak %s' % (msg)
+        # print '/social/speech/to_speak %s' % (msg)
         self.speech_pub.publish(msg)
 
     def load_config(self):
@@ -94,7 +93,7 @@ class AskToGPTNode:
             "user": self.userId,
             "idUser": self.iduser
         })
-        rospy.loginfo("Payload being sent to GPT API: {}".format(payload))
+       # rospy.loginfo("Payload being sent to GPT API: {}".format(payload))
         try:
             json_response = requests.post(self.url, headers=self.headers, data=payload)
             json_response.raise_for_status()  # Check for HTTP errors

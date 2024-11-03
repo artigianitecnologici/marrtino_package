@@ -46,7 +46,7 @@ class AskToGPTNode:
         }
 
         # self.gpt_treadid_pub.publish(self.treadId)
-        rospy.loginfo("asktogpt v.1.01 node started in {} mode and listening...".format(group))
+        rospy.loginfo("asktogpt v.1.02 node started in {} mode and listening...".format(group))
 
     def load_config(self):
         # Use rospkg to find the path to the marrtino_package
