@@ -5,7 +5,7 @@ museo:
   message: "Presentati ed effettua il Login con queste coppie di chiave valore, Login:AssMuseo Password:12345678"
   userid: "AssMuseo"
   pHPsessionid: "muaq5rne7uueig615pcj6h2dui"
-  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v11/controller.php"
   dscgpt: "Sono il tuo assistente museale"
   iduser: 6
 hotel:
@@ -14,7 +14,7 @@ hotel:
   message: "Presentati ed effettua il Login, Login:ManHotel Password:12345678"
   userid: "ManHotel"
   pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
-  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v11/controller.php"
   dscgpt: "Sono il tuo assistente Manager dell Hotel"
   iduser: 7
   
@@ -24,7 +24,7 @@ eventi:
   message: "Presentati ed effettua il Login, Login:ManEvento Password:12345678"
   userid: "ManEvento"
   pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
-  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v11/controller.php"
   ./se: "Sono il tuo assistente per gli Eventi"
   iduser: 4
  
@@ -34,6 +34,6 @@ azienda:
   message: "Presentati ed effettua il Login, Login:ManAzienda Password:12345678"
   userid: "ManAzienda"
   pHPsessionid: "50la5tns4ule95udg6in7ko5aa"
-  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v10/controller.php"
+  urlgtp: "https://sviluppo.manpronet.com:8443/ai_project/v11/controller.php"
   dscgpt: "Sono il tuo assistente manager aziendale"
   iduser: 5

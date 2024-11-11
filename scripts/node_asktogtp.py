@@ -9,6 +9,7 @@ import rospkg
 
 TOPIC_response_gtp = "/gtpresponse"
 TOPIC_request_gtp = "/gtprequest"
+TOPIC_sendphoto_gtp = "/gtpphoto"
 TOPIC_set_group = "/gtpsetgroup"
 TOPIC_speech = "/social/speech/to_speak"
 TOPIC_speechstatus = "/social/speech/status"
@@ -29,18 +30,18 @@ class AskToGPTNode:
         rospy.Subscriber(TOPIC_request_gtp, String, self.handle_request)
         # Subscriber for group set requests
         rospy.Subscriber(TOPIC_set_group, String, self.update_group)
-
+        rospy.Subscriber(TOPIC_sendphoto_gtp, String, self.send_photo)
         # Load the configuration file and initialize with the default group
         self.config = self.load_config()
         self.group = rospy.get_param('~group', 'hotel')  # Default to "museo"
         self.initialize_group(self.group)
-        self.log_msg_pub.publish("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
-        rospy.loginfo("asktogpt v.1.01 node started in {} mode and listening...".format(self.group))
+        self.log_msg_pub.publish("asktoai v.1.02 node started in {} mode and listening...".format(self.group))
+        rospy.loginfo("asktoai v.1.02 node started in {} mode and listening...".format(self.group))
 
     def setlanguage(self, msg):
         # Placeholder function to set language
-        print '/social/speech/language %s' % (msg)
-        # self.language_pub.publish(msg)
+        #print '/social/speech/language %s' % (msg)
+        self.language_pub.publish(msg)
 
     def speech(self, msg):
         # print '/social/speech/to_speak %s' % (msg)
@@ -51,7 +52,7 @@ class AskToGPTNode:
         rospack = rospkg.RosPack()
         package_path = rospack.get_path('marrtino_package')  # Find package path
         config_file = rospy.get_param('~config_file', package_path + '/config/config.yaml')  # Build config path
-
+        
         # Load the YAML configuration file
         with open(config_file, 'r') as file:
             return yaml.safe_load(file)
@@ -79,6 +80,7 @@ class AskToGPTNode:
 
         # Activate a new session and get the thread ID
         self.log_msg_pub.publish("Group initialized to: {}".format(group))
+        
         self.treadId = self.activatesession()
         rospy.loginfo("Group initialized to: {}".format(group))
         self.speech(self.dscgtp)
@@ -107,18 +109,19 @@ class AskToGPTNode:
             payload = json.dumps({
                 "apiKey": self.api_key,
                 "action": "addMessage",
-                "message": "Introduce yourself and log in with these key-value pairs, Login:AssMuseo Password:12345678",
+                "message": self.message,
                 "assistID": self.assid,
                 "threadID": treadid,
                 "db": "mpnet_its_pesaro",
                 "user": self.userId,
-                "idUser": 6
+                "idUser": self.iduser
             })
 
             response = requests.post(self.url, headers=self.headers, data=payload)
             response.raise_for_status()
             rospy.sleep(3)
-            self.log_msg_pub.publish("Ok Start session")
+            self.log_msg_pub.publish("Ok Start session TreadId {}".format(treadid))
+            
             rospy.loginfo("ok start session")
             return treadid
 
@@ -143,20 +146,25 @@ class AskToGPTNode:
                 "threadID": self.treadId,
                 "db": "mpnet_its_pesaro",
                 "user": self.userId,
-                "idUser": 1
+                "idUser": self.iduser
             })
+            headers = {
+                'Content-Type': 'application/json',
+                'Cookie': 'PHPSESSID={}'.format(self.PHPsessionid)
+                }
+
       
             # Send the request to the GPT API
             try:
-                response = requests.post(self.url, headers=self.headers, data=payload)
+                response = requests.post(self.url, headers=headers, data=payload)
                 response.raise_for_status()  # Check for HTTP errors
                 response_text = response.text
-                rospy.loginfo("GPT Response: {}".format(response_text))
+                rospy.loginfo("AI Response: {}".format(response_text))
 
                 # Publish the GPT response
                 self.gpt_response_pub.publish(response_text)
             except Exception as e:
-                rospy.logerr("Error in GPT request: {}".format(e))
+                rospy.logerr("Error in AI request: {}".format(e))
 
     def update_group(self, msg):
         # Handle the group update request
@@ -168,6 +176,45 @@ class AskToGPTNode:
         self.initialize_group(new_group)
 
 
+    def send_photo(self, msg):
+        # Handle the group update request
+        urlphoto = msg.data
+        self.log_msg_pub.publish("Send photo : {}".format(urlphoto))
+        rospy.loginfo("Send photo : {}".format(urlphoto))
+      
+        payload = {'action': 'addMessage',
+            'apiKey': self.api_key,
+            'db': 'mpnet_its_pesaro',
+            'user': 'AssMuseo',
+            'idUser': self.iduser ,
+            'threadID': self.treadId,
+            'message': 'Salve questo e il mio bilgietto per la mostra posso entrare',
+            'assistID': self.assid}
+        files=[
+            ('files[]',('biglietto.png',open('/home/robot/src/marrtino_package/image/biglietto.png','rb'),'image/png'))
+        ]
+        headers = {
+             'Cookie': 'PHPSESSID={}'.format(self.PHPsessionid)
+        }
+        # Open the file in binary mode and prepare it for upload
+        
+
+       
+        # Make the POST request
+        response = requests.post(self.url, headers=headers, data=payload, files=files)
+
+        # Check for success and print the response
+        if response.status_code == 200:
+                
+            self.log_msg_pub.publish("Ok send photo succesful")
+        else:
+            self.log_msg_pub.publish("Send photo failed with status code {}".format(response.status_code))
+                                                            
+        
+        print(response.text)
+
+     
+ 
 if __name__ == '__main__':
     try:
         node = AskToGPTNode()
