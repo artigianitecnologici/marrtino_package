@@ -178,9 +178,9 @@ class AskToGPTNode:
 
     def send_photo(self, msg):
         # Handle the group update request
-        urlphoto = msg.data
-        self.log_msg_pub.publish("Send photo : {}".format(urlphoto))
-        rospy.loginfo("Send photo : {}".format(urlphoto))
+        request_text =  msg.data
+        self.log_msg_pub.publish("Send photo ")
+        rospy.loginfo("Send photo ")
       
         payload = {'action': 'addMessage',
             'apiKey': self.api_key,
@@ -188,7 +188,7 @@ class AskToGPTNode:
             'user': 'AssMuseo',
             'idUser': self.iduser ,
             'threadID': self.treadId,
-            'message': 'Salve questo e il mio bilgietto per la mostra posso entrare',
+            'message': request_text,
             'assistID': self.assid}
         files=[
             ('files[]',('biglietto.png',open('/home/robot/src/marrtino_package/image/biglietto.png','rb'),'image/png'))
@@ -202,7 +202,8 @@ class AskToGPTNode:
        
         # Make the POST request
         response = requests.post(self.url, headers=headers, data=payload, files=files)
-
+        response_text = response.text
+                
         # Check for success and print the response
         if response.status_code == 200:
                 
@@ -211,8 +212,9 @@ class AskToGPTNode:
             self.log_msg_pub.publish("Send photo failed with status code {}".format(response.status_code))
                                                             
         
-        print(response.text)
-
+        rospy.loginfo("AI Response: {}".format(response_text))
+        # Publish the GPT response
+        self.gpt_response_pub.publish(response_text)
      
  
 if __name__ == '__main__':
